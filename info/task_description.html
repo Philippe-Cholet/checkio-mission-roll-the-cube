@@ -1,0 +1,121 @@
+<!-- Describe task in general -->
+<p>
+    This mission is an adaptation of the "Cube" game (from
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/" target="_blank">Simon Tatham's Portable Puzzle Collection</a>).
+    If you are lost or just want to play, the game is available
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html" target="_blank">here</a>.
+</p>
+
+<p>
+    There is an uncolored cube on a rectangular grid with six colored cells.
+    You must roll the cube to color it entirely, and return the way you roll the cube to do so.
+    <br>
+    If the cube rolls on a colored cell and the corresponding face is uncolored, then the face is colored instead of the cell.
+    <br>
+    If the cube rolls on an uncolored cell and the corresponding face is colored, then the cell is colored instead of the face.
+</p>
+
+<p>
+    <strong>Note:</strong>
+    There are many ways to color the cube.
+    Fortunately, you do not have to return the shortest way to do it
+    because it would be too difficult on large grids (up to 50 rows and 50 columns).
+</p>
+
+<!-- Representations -->
+<p>
+    The first argument gives the grid dimensions (number of rows, number of columns).
+    <br>
+    The second argument is the position of the cube (row, column).
+    <br>
+    The last argument is the set of the positions of the colored cells.
+    <br>
+    Directions are represented by "N" (north), "S" (south), "W" (west) and "E" (east).
+</p>
+
+
+<!-- Explain input and output values -->
+<p>
+    <strong>Input:</strong>
+    Two tuples of two integers and a set of tuples of two integers.
+</p>
+
+<p>
+    <strong>Output:</strong>
+    A string with "NSWE" directions.
+</p>
+
+
+<!-- Put some usage examples -->
+<div class="for_info_only">
+<p>
+    <strong>Example:</strong>
+</p>
+
+<!-- First test explained -->
+<div style="text-align:center">
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c2x4:EB,5" title="4 rows, 2 columns, start=(2, 1), colored={(0, 0), (0, 1), (1, 0), (2, 0), (3, 0), (3, 1)}" target="_blank">
+        <img src="{{MEDIA}}4x2-example.png" alt="4x2 example image" title="4x2 example"/>
+    </a>
+</div>
+<pre>
+Move   Cube position  Colored cells                              Colored faces
+       (2, 1)         (0, 0) (0, 1) (1, 0) (2, 0) (3, 0) (3, 1)  no colored face
+West   (2, 0)         (0, 0) (0, 1) (1, 0) (3, 0) (3, 1)         Down
+South  (3, 0)         (0, 0) (0, 1) (1, 0) (3, 1)                Down North
+East   (3, 1)         (0, 0) (0, 1) (1, 0)                       Down North West
+North  (2, 1)         (0, 0) (0, 1) (1, 0) (2, 1)                South West
+West   (2, 0)         (0, 0) (0, 1) (1, 0) (2, 0) (2, 1)         South
+East   (2, 1)         (0, 0) (0, 1) (1, 0) (2, 0)                Down South
+North  (1, 1)         (0, 0) (0, 1) (1, 0) (2, 0)                South Up
+North  (0, 1)         (0, 0) (1, 0) (2, 0)                       Down North Up
+West   (0, 0)         (1, 0) (2, 0)                              Down East North West
+South  (1, 0)         (2, 0)                                     Down East North Up West
+South  (2, 0)         no colored cell anymore                    all faces are colored
+Hence on that grid, one way to color the cube entirely is "WSENWENNWSS".
+</pre>
+
+<pre class="brush: python">
+roll_cube((4, 2), (2, 1), {(0, 0), (0, 1), (1, 0), (2, 0), (3, 0), (3, 1)})
+# "WSENWENNWSS" or "WNNESSNSSWNEWESWE" or ...
+</pre>
+
+<p>
+    To play the puzzles / tests yourself:
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c2x4:EB,5" title="4 rows, 2 columns, start=(2, 1), colored={(0, 0), (0, 1), (1, 0), (2, 0), (3, 0), (3, 1)}" target="_blank">1</a>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c3x3:FA0,7" title="3 rows, 3 columns, start=(2, 1), colored={(0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (2, 0)}" target="_blank">2</a>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c4x4:824B,7" title="4 rows, 4 columns, start=(1, 3), colored={(0, 0), (1, 2), (2, 1), (3, 0), (3, 2), (3, 3)}" target="_blank">3</a>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c4x4:9249,10" title="4 rows, 4 columns, start=(2, 2), colored={(0, 0), (0, 3), (1, 2), (2, 1), (3, 0), (3, 3)}" target="_blank">4</a>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c10x10:0800000402804000000400000,39" title="10 rows, 10 columns, start=(3, 9), colored={(0, 4), (2, 9), (3, 8), (4, 0), (4, 9), (7, 7)}" target="_blank">5</a>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c6x2:707,0" title="2 rows, 6 columns, start=(0, 0), colored={(0, 1), (0, 2), (0, 3), (1, 3), (1, 4), (1, 5)}" target="_blank">6</a>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c3x4:5D2,0" title="4 rows, 3 columns, start=(0, 0), colored={(0, 1), (1, 0), (1, 1), (1, 2), (2, 1), (3, 1)}" target="_blank">7</a>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c7x10:408000100000120400,42" title="10 rows, 7 columns, start=(6, 0), colored={(0, 1), (1, 1), (3, 6), (7, 2), (7, 5), (8, 5)}" target="_blank">8</a>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c16x9:002080000000000008000400000000020800,130" title="9 rows, 16 columns, start=(8, 2), colored={(0, 10), (1, 0), (4, 4), (5, 5), (7, 14), (8, 4)}" target="_blank">9</a>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c10x20:00100082000000000004000000020000000000040000000000,19" title="20 rows, 10 columns, start=(1, 9), colored={(1, 1), (2, 4), (3, 0), (7, 7), (11, 0), (15, 7)}" target="_blank">10</a>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c16x25:0000000000100000220200000000000000000000000800000000000000000000000000000000000000000000000000000100,395" title="25 rows, 16 columns, start=(24, 11), colored={(2, 11), (4, 2), (4, 6), (4, 14), (10, 12), (24, 7)}" target="_blank">11</a>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c25x30:00004000000000000000000000000000000000000000000000000000000000040000000000800000000000000000000000000000000000000000000000000000000400000000000000000000000000000400000400000000000000000000,197" title="30 rows, 25 columns, start=(7, 22), colored={(0, 17), (10, 3), (11, 21), (21, 0), (25, 20), (26, 19)}" target="_blank">12</a>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c40x25:0010000000000000000000000000000000000000000000000000000000000000000000000000000200000040000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000004000000000000000000000000000010000000000,757" title="25 rows, 40 columns, start=(18, 37), colored={(0, 11), (7, 38), (8, 25), (17, 4), (21, 1), (23, 39)}" target="_blank">13</a>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c40x35:00000000000004000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000200000000000000000000000000004000000000000000000000000000000000000,556" title="35 rows, 40 columns, start=(13, 36), colored={(1, 13), (7, 27), (19, 3), (27, 28), (28, 18), (31, 13)}" target="_blank">14</a>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c42x47:00000200000000000000000000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000400000004000000000,1739" title="47 rows, 42 columns, start=(41, 17), colored={(0, 22), (8, 9), (24, 40), (30, 29), (45, 15), (46, 5)}" target="_blank">15</a>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c50x50:0000000000000800000080000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000040000000000000000000,2312" title="50 rows, 50 columns, start=(46, 12), colored={(1, 2), (1, 30), (2, 37), (20, 49), (30, 5), (48, 21)}" target="_blank">16</a>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c10x10:6030080000000000000000001,0" title="10 rows, 10 columns, start=(0, 0), colored={(0, 1), (0, 2), (1, 0), (1, 1), (2, 0), (9, 9)}" target="_blank">17</a>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c21x2:00500C02800,10" title="2 rows, 21 columns, start=(0, 10), colored={(0, 9), (0, 11), (0, 20), (1, 0), (1, 9), (1, 11)}" target="_blank">18</a>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c3x21:8000000AA0000002,31" title="21 rows, 3 columns, start=(10, 1), colored={(0, 0), (9, 1), (10, 0), (10, 2), (11, 1), (20, 2)}" target="_blank">19</a>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c12x10:800000000000000001002004008010,119" title="10 rows, 12 columns, start=(9, 11), colored={(0, 0), (5, 11), (6, 10), (7, 9), (8, 8), (9, 7)}" target="_blank">20</a>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c20x20:40000A0000400000000000000000000000000000000000000000000000000000000000000000000100000000000000000010,21" title="20 rows, 20 columns, start=(1, 1), colored={(0, 1), (1, 0), (1, 2), (2, 1), (15, 19), (19, 15)}" target="_blank">21</a>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/cube.html#c50x50:0000000000018000000000003000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000000000,49" title="50 rows, 50 columns, start=(0, 49), colored={(0, 47), (0, 48), (1, 48), (1, 49), (2, 49), (49, 0)}" target="_blank">22</a>
+</p>
+</div>
+
+
+<p>
+    <strong>Preconditions:</strong>
+    <ul>
+        <li>All puzzles are solvable.</li>
+        <li>2 &le; dimensions[0] &le; 50
+        and 2 &le; dimensions[1] &le; 50.</li>
+        <li>all(0 &le; row &lt; dimensions[0]
+                and 0 &le; col &lt; dimensions[1]
+                for row, col in colored | {start})</li>
+    </ul>
+</p>
