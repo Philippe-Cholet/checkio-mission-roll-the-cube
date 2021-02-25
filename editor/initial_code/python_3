@@ -1,4 +1,5 @@
 from typing import Set, Tuple
+import time
 
 
 def roll_cube(
@@ -55,6 +56,7 @@ if __name__ == '__main__':
         ((10, 10), (3, 9), {(0, 4), (2, 9), (3, 8), (4, 0), (4, 9), (7, 7)}),
     ]
 
+    start_time = time.time()
     for dimensions, start, colored in TESTS:
         try:
             user_result = roll_cube(dimensions, start, colored.copy())
@@ -68,3 +70,4 @@ if __name__ == '__main__':
         print()
     else:
         print('Well done! Click on "Check" for more tests.')
+    print('You did it in %.1f seconds.' % (time.time() - start_time))
